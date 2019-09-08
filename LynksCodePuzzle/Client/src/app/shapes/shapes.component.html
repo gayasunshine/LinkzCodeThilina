@@ -1,0 +1,24 @@
+<form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+<div class="jumbotron text-center">
+        <h3>Shape Generator</h3>
+      </div>
+      <div class="container">
+      <div class="form-group">
+        <label for="usr">Please Enter Shape Description:</label>
+        <input name="userInput"#userInput="ngModel"[(ngModel)] ="service.formData.userInput" class="form-control">
+      </div>
+        <button type="submit" class="btn btn-primary">Generate Shape!</button>
+      </div>
+    <div class="container">
+        <ng-container>
+      <p>
+        <label id="lblName"> {{responce}} </label>
+    </p>
+        </ng-container>
+  </div>
+    </form>
+    <div class="container">
+    <canvas #canvas width="600" height="300" ></canvas>
+  </div>
+    
+    
