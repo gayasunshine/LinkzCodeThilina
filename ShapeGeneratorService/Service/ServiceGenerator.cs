@@ -31,7 +31,7 @@ namespace ShapeGeneratorService.Service
             {
 
                 //Format the User Input
-                if (userInput != null || userInput != "")
+                if (userInput != "")
                 {
                     userInput = Helper.FormatUserInput(userInput);
                     bool isValiedInput = ValidateUserInputFormat(userInput);
@@ -43,7 +43,7 @@ namespace ShapeGeneratorService.Service
                         validatedShape = GetValidatedShape(posibleShapes, userInput);
 
                         //Check Shape is resolved or not
-                        if(validatedShape == "" || validatedShape == null)
+                        if(validatedShape == "")
                         {
                             shape.isIdentified = false;
                             shape.responceMessage = ResponseMessegeFaild;
@@ -107,12 +107,19 @@ namespace ShapeGeneratorService.Service
         {
             try
             {
+
                 //Return value for is validated or not
-                bool isUserInputValidated;
+                bool isUserInputValidated = false;
                 //Variable for hold second portion of user input before the shape
-                string secondPortion = userInput.Substring(4, 1);
+                if (userInput.Length > 4)
+                {
+                    string secondPortion = userInput.Substring(4, 1);
+                    isUserInputValidated = userInput.Contains(UserRequestAction);
+                }
                 //Validate first portion of the User Input is correct before the shape identified.
-                isUserInputValidated = userInput.Contains(UserRequestAction);
+                
+                
+                
                 //Checking the second portion after the Shape
                 if (isUserInputValidated)
                 {
@@ -126,13 +133,11 @@ namespace ShapeGeneratorService.Service
 
 
 
-
-
-
                 return isUserInputValidated;
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentOutOfRangeException  ex)
             {
+                
                 throw ex;
             }
         }
