@@ -3,10 +3,6 @@ using ShapeGeneratorService.ServiceIntrface;
 using ShapeGeneratorService.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ShapeGeneratorService.Service
 {
@@ -23,8 +19,9 @@ namespace ShapeGeneratorService.Service
         public const string ResponseMessegeFaild = "Shape not Created";
         public const string WidthProperty = "width";
         public const string HeightProperty = "height";
+        public const string UserInputEmptyMessage = "Please enter the Shape Description";
 
-
+        //Return the validated shape object to Web Api
         public Shape ValidateShape(string userInput)
         {
             string validatedShape = string.Empty;
@@ -34,7 +31,7 @@ namespace ShapeGeneratorService.Service
             {
 
                 //Format the User Input
-                if (userInput != null)
+                if (userInput != null || userInput != "")
                 {
                     userInput = Helper.FormatUserInput(userInput);
                     bool isValiedInput = ValidateUserInputFormat(userInput);
@@ -45,22 +42,34 @@ namespace ShapeGeneratorService.Service
                         List<string> posibleShapes = Helper.AllPossibleKeyValues(Shapes);
                         validatedShape = GetValidatedShape(posibleShapes, userInput);
 
-                        if(validatedShape == "")
+                        //Check Shape is resolved or not
+                        if(validatedShape == "" || validatedShape == null)
                         {
                             shape.isIdentified = false;
                             shape.responceMessage = ResponseMessegeFaild;
+                            return shape;
                         }
+
+                        
                         //Get the Last Portion of the UserInput to process Property resolver
                         lastPortion = Helper.GetLastPortionofUserInput(userInput, validatedShape);
-                        if (lastPortion != "")
+                        if (lastPortion != "" || lastPortion != null)
                         {
                             shape = getRequestedShape(PropertyResolver(lastPortion), validatedShape);
+                        }
+                        //If User has not enterd Last Portion
+                        else
+                        {
+                            shape.isIdentified = false;
+                            shape.responceMessage = ResponseMessegeFaild;
+                            return shape;
                         }
 
                         if(!shape.isParametersMatched)
                         {
                             shape.isIdentified = false;
                             shape.responceMessage = ResponseMessegeFaild;
+                            return shape;
                         }
 
                     }
@@ -73,11 +82,11 @@ namespace ShapeGeneratorService.Service
 
 
                 }
-
+                //If user not Provided Input
                 else
                 {
                     shape.isIdentified = false;
-                    shape.responceMessage = ResponseMessegeFaild;
+                    shape.responceMessage = UserInputEmptyMessage;
                 }
 
                 
@@ -104,7 +113,7 @@ namespace ShapeGeneratorService.Service
                 string secondPortion = userInput.Substring(4, 1);
                 //Validate first portion of the User Input is correct before the shape identified.
                 isUserInputValidated = userInput.Contains(UserRequestAction);
-                //Checking the second portion before the Shape
+                //Checking the second portion after the Shape
                 if (isUserInputValidated)
                 {
                     isUserInputValidated = userInput.Contains(SecondPortion);
