@@ -7,15 +7,15 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ShapeGeneratorServiceService {
 
- // formData: Shape 
-  //readonly rootUrl : 'http://localhost:53599/api'
+  formData: Shape 
+  readonly rootUrl = 'http://localhost:53599/api';
 
   constructor(private http : HttpClient) { }
 
   postShape(formData : Shape)
   {
 
-     return this.http.post('http://localhost:53599/api/Shapes',formData);
+     return this.http.post(this.rootUrl+'/Shapes',formData);
   }
 
   
