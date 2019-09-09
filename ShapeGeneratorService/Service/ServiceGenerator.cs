@@ -20,6 +20,7 @@ namespace ShapeGeneratorService.Service
         public const string WidthProperty = "width";
         public const string HeightProperty = "height";
         public const string UserInputEmptyMessage = "Please enter the Shape Description";
+        public const string NotSupportedMessage = "This Shape is not Supported in this moment";
 
         //Return the validated shape object to Web Api
         public Shape ValidateShape(string userInput)
@@ -365,7 +366,7 @@ namespace ShapeGeneratorService.Service
                         //Fill the Object
                         shape.isIdentified = true;
                         shape.isParametersMatched = true;
-                        shape.responceMessage = ResponseMessegeSucsess;
+                        shape.responceMessage = NotSupportedMessage;
                         shape.sideLength = item.Value;
                         shape.shapeType = ShapeType.Parallelogram;
                         shape.shapeName=(ShapeType.Parallelogram.ToString());
@@ -389,7 +390,7 @@ namespace ShapeGeneratorService.Service
                         //Fill the Object
                         shape.isIdentified = true;
                         shape.isParametersMatched = true;
-                        shape.responceMessage = ResponseMessegeSucsess;
+                        shape.responceMessage = NotSupportedMessage;
                         shape.sideLength = item.Value;
                         shape.shapeType = ShapeType.Pentagon;
                         shape.shapeName=(ShapeType.Pentagon.ToString());
