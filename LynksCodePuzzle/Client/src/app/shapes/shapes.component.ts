@@ -27,8 +27,8 @@ export class ShapesComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.ctx = this.canvas.nativeElement.getContext('2d');
-   this.resetForm();
+  this.ctx = this.canvas.nativeElement.getContext('2d');
+  this.resetForm();
    
    
   }
@@ -41,26 +41,24 @@ export class ShapesComponent implements OnInit {
     {
       squire.drawRectrangle(5,2,s.sideLength,s.sideLength);
     }
-    if(s.shapeName == 'Rectangle')
+    else if(s.shapeName == 'Rectangle')
     {
 
     squire.drawRectrangle(5,2,s.height,s.width);
     }
 
-    if(s.shapeName == 'IsoscelesTriangle')
+    else if(s.shapeName == 'IsoscelesTriangle')
     {
-     alert("Traingle stated");
     squire.drawTraingle(s.width,s.height);
     }
 
    
-    if(s.shapeName == 'ScaleneTriangle')
+    else if(s.shapeName == 'ScaleneTriangle')
     {
-     alert("Traingle Scalene stated");
     squire.drawTraingle(s.sideLength,s.sideLength);
     }
 
-    if(s.shapeName == 'Hexagon')
+    else if(s.shapeName == 'Hexagon')
     {
       squire.drawHexagon(5,6,s.sideLength,7);
     }
@@ -108,9 +106,6 @@ export class ShapesComponent implements OnInit {
     injectUserInput(form: NgForm)
     {
       this.service.postShape(form.value).subscribe(res => {this.result = res as Shape, this.bindData(form)});
-      alert("aa");
-      
-      
       
     }
 
@@ -119,14 +114,6 @@ export class ShapesComponent implements OnInit {
     bindData(form : NgForm)
     {
       //this.service.formData = form.value;
-      alert(this.result.shapeName);
-      alert(this.result.height);
-      alert(this.result.width);
-      alert(this.result.sideLength)
-      alert(this.result.isIdentified);
-      alert(this.result.isParametersMatched);
-      alert(this.result.responceMessage);
-      alert(this.result.shapeType);
       this.drawShape(this.result);
       this.responce = this.result.responceMessage;
       

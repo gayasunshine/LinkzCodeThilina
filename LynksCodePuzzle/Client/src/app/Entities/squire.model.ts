@@ -27,7 +27,6 @@ drawHexagon(x: number,y:number,sidelength:number,side:number) {
     for (side; side < 7; side++) {
     this.ctx.lineTo(x + sidelength * Math.cos(side * 2 * Math.PI / 6), y + sidelength * Math.sin(side * 2 * Math.PI / 6));
 }
-alert("Hexagon Creator");
 this.ctx.closePath();
 this.ctx.stroke();
   }
