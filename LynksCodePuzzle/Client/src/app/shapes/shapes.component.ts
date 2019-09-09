@@ -15,7 +15,6 @@ export class ShapesComponent implements OnInit {
   @ViewChild('canvas', { static: true })
   canvas: ElementRef<HTMLCanvasElement>;  
   private ctx: CanvasRenderingContext2D;
- 
 
   
 
