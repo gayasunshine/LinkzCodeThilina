@@ -63,6 +63,20 @@ namespace ShapeGeneratorServiceTest
 
         }
 
+        [TestMethod]
+        public void CheckEmptyUserInput()
+        {
+            Shape shape = new Shape();
+            string userInput = "";
+            ServiceGenerator service = new ServiceGenerator();
+            string responceMassage = "Please enter the Shape Description";
+            shape = service.ValidateShape(userInput);
+            string expectedValue = shape.responceMessage;
+            Assert.AreEqual(expectedValue, responceMassage);
+
+
+        }
+
 
     }
 }
